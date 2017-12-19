@@ -294,19 +294,33 @@ class Observation(object):
             z_score = self._adjust_weight_based_z_score(z_score, y, **lms)
         return z_score
 
-    def acfa(self, measurement):
+    def acfa(self, measurement, use_extra_data=False):
         """Return the arm circumference-for-age z-score (aka MUAC).
 
-        The valid age range is 3 months to 5 years.
+        When using WHO data, the valid age range is 3 months to 5 years. If
+        use_extra_data is set to True, the Mramba, et al, data set is available
+        for children between 5 and 19 years. See README for details on this.
 
         Args:
             measurement: mid-upper arm circumference measurement (in cm).
                 float or Decimal
+            use_extra_data: allow the usage of an additional data set to serve
+                children 5-19. Bool.
         """
-        self._validate_t(
-            lower=91, upper=1856, msg="Range is 3 months to 5 years."
-            )
-        y = self._validate_measurement(measurement, 3, 40)
+        if use_extra_data:
+            self._validate_t(
+                lower=91, upper=19*365.25,
+                msg="Range is 3 months to 19 years when use_extra_data is "
+                "True."
+                )
+        else:
+            self._validate_t(
+                lower=91, upper=1856,
+                msg="Range is 3 months to 5 years. Pass use_extra_data=True "
+                "for children 5-19."
+                )
+        upper_bound = 60 if use_extra_data else 40
+        y = self._validate_measurement(measurement, 3, upper_bound)
         return self.get_z_score(
             table_name="acfa",
             y=y,

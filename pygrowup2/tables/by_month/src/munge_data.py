@@ -60,11 +60,11 @@ def parse_files(file_names):
 # For ages (0-5) where we already have daily data, we ignore their monthly
 # versions.
 output_input = (
-    # ("acfa.py", (
-    #     "tab_acfa_boys_z_3_5.txt",
-    #     "tab_acfa_girls_z_3_5.txt",
-    #     )
-    # ),
+    ("acfa.py", (
+        "mramba_acfa_boys_5_19.txt",
+        "mramba_acfa_girls_5_19.txt",
+        )
+     ),
     ("bmifa.py", (
         # "bmi_boys_0_2_zcores.txt",
         # "bmi_boys_2_5_zscores.txt",
