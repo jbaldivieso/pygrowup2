@@ -5,7 +5,8 @@ Summary: Calculate z-scores of anthropometric measurements based on WHO child gr
 Home-page: https://github.org/jbaldivieso/pygrowup2
 Author: Jon Baldivieso
 Author-email: jbaldivieso@gmail.com
-License: BSD
+License: GPLv3
+Description-Content-Type: UNKNOWN
 Description: UNKNOWN
 Platform: UNKNOWN
 Classifier: Development Status :: 3 - Alpha

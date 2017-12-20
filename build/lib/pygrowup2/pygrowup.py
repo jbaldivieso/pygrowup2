@@ -8,7 +8,7 @@ WEIGHT_BASED_INDICATORS = {
     "wfl",
     "wfh",
     "bmifa",
-    # Note: the WHO technical documentation doesn't discuss skinfold Z-score
+    # Note: the WHO technical documentation doesn't discuss skinfold z-score
     # computation, but it appears that tests pass when the weight-based
     # adjustments are applied.
     "ssfa",
@@ -36,7 +36,7 @@ class Observation(object):
 
         Under most circumstances, an age must be supplied (or implied) by
         specifying age_in_months, age_in_days, or dob AND date_of_observation.
-        (The exception to this is when the *only* Z-score to be calculated is
+        (The exception to this is when the *only* z-score to be calculated is
         weight for length/height.)
         """
         if sex not in self.SEXES:
@@ -100,7 +100,7 @@ class Observation(object):
         else:
             # Must be an age-based metric for an age over 5 years. Round
             # age (in days) to nearest month.
-            t = round(t / (365/12))
+            t = round(t / (365/12.))
             module_path = "pygrowup2.tables.by_month.%s" % (table_name)
         try:
             source = import_module(module_path)
@@ -125,7 +125,7 @@ class Observation(object):
         return result
 
     def _get_first_pass_z_score(self, y, l, m, s):
-        """Calculate and return a "first-pass" Z-score given the key inputs
+        """Calculate and return a "first-pass" z-score given the key inputs
         derived from a child's age (or in some cases, length/height).
 
         ("First-pass" in this case refers to the fact that certain weight-based
@@ -273,7 +273,7 @@ class Observation(object):
         return y
 
     def get_z_score(self, table_name, sex, y, t):
-        """Calculate and return a Z-score.
+        """Calculate and return a z-score.
 
         Args:
             table_name: one of our abbreviated names for the growth standards.
@@ -294,19 +294,33 @@ class Observation(object):
             z_score = self._adjust_weight_based_z_score(z_score, y, **lms)
         return z_score
 
-    def acfa(self, measurement):
+    def acfa(self, measurement, use_extra_data=False):
         """Return the arm circumference-for-age z-score (aka MUAC).
 
-        The valid age range is 3 months to 5 years.
+        When using WHO data, the valid age range is 3 months to 5 years. If
+        use_extra_data is set to True, the Mramba, et al, data set is available
+        for children between 5 and 19 years. See README for details on this.
 
         Args:
             measurement: mid-upper arm circumference measurement (in cm).
                 float or Decimal
+            use_extra_data: allow the usage of an additional data set to serve
+                children 5-19. Bool.
         """
-        self._validate_t(
-            lower=91, upper=1856, msg="Range is 3 months to 5 years."
-            )
-        y = self._validate_measurement(measurement, 3, 40)
+        if use_extra_data:
+            self._validate_t(
+                lower=91, upper=19*365.25,
+                msg="Range is 3 months to 19 years when use_extra_data is "
+                "True."
+                )
+        else:
+            self._validate_t(
+                lower=91, upper=1856,
+                msg="Range is 3 months to 5 years. Pass use_extra_data=True "
+                "for children 5-19."
+                )
+        upper_bound = 60 if use_extra_data else 40
+        y = self._validate_measurement(measurement, 3, upper_bound)
         return self.get_z_score(
             table_name="acfa",
             y=y,

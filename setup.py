@@ -25,7 +25,7 @@ setup(
     description="Calculate z-scores of anthropometric measurements based on "
     "WHO child growth standards",
     # long_description=get_readme('README.md'),
-    license="BSD",
+    license="GPLv3",
     url="https://github.org/jbaldivieso/pygrowup2",
     classifiers=[
         "Development Status :: 3 - Alpha",

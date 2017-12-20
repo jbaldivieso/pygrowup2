@@ -16,12 +16,12 @@ from pygrowup import Observation
 DATASET_DIR = "test_datasets"
 
 # This file is derived from the R implementation of iGrowup. We're trusting
-# its Z-score values. It's a CSV with erratically named columns, so we
+# its z-score values. It's a CSV with erratically named columns, so we
 # normalize the names for ease of use.
 TEST1_FILE_NAME = "MySurvey_z_st.csv"
 
 # This file is derived from a sample set of data from SPOON, run through the
-# stata implementation of iGrowup. We're trusting its Z-score values as well.
+# stata implementation of iGrowup. We're trusting its z-score values as well.
 # And it's also a CSV with erratically named columns, so we again normalize
 # names for ease of use.
 TEST2_FILE_NAME = "test_dataset.csv"
@@ -360,6 +360,58 @@ class TestZScores(unittest.TestCase):
             method_kwargs2={"height": lambda r: get_field_2(r, "height")},
             test_both_files=True,
             )
+
+    def test_additional_data_for_arm_circumference_for_age(self):
+        """A one-off that weakly just tests against round z-score values."""
+
+        def test(sex):
+            file_name = os.path.join(
+                "tables", "by_month", "src",
+                "mramba_acfa_%(sex)s_5_19.txt" % {"sex": sex}
+                )
+            header2zscore = {
+                "SD3neg": -3,
+                "SD2neg": -2,
+                "SD1neg": -1,
+                "SD0": 0,
+                "SD1": 1,
+                "SD2": 2,
+                "SD3": 3,
+                }
+            count = 0
+            with open(file_name) as f:
+                reader = csv.DictReader(f, delimiter="\t")
+                for row in reader:
+                    age_in_months = row["Month"]
+                    # Tests are only month-level age granularity
+                    obs_by_month = Observation(
+                        sex=Observation.MALE if sex == "boys"
+                        else Observation.FEMALE,
+                        age_in_months=age_in_months,
+                        )
+                    for col, z_score in header2zscore.items():
+                        y = row[col]
+                        # These get reported back upon sub-test failure, to aid
+                        # troubleshooting.
+                        subtest_feedback = {
+                            "sex": sex,
+                            "age_in_months": age_in_months,
+                            "measurement": y,
+                            }
+                        with self.subTest(**subtest_feedback):
+                            ours_by_month = obs_by_month.acfa(
+                                y, use_extra_data=True
+                                )
+                            self.assertAlmostEqual(
+                                ours_by_month, z_score, delta=DELTA
+                                )
+
+                            count += 1
+            return count
+        tested = 0
+        tested += test("boys")
+        tested += test("girls")
+        print("Tested %s additional arm circumference values" % tested)
 
 
 class TestUnexpectedValues(unittest.TestCase):
