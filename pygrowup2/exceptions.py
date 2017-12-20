@@ -28,7 +28,7 @@ class ImproperlySpecifiedSex(PyGrowUpException):
 
 
 class ZScoreError(PyGrowUpException):
-    """Raised when there's an unspecified problem determining a Z-score"""
+    """Raised when there's an unspecified problem determining a z-score"""
 
 
 class ImproperlySpecifiedMeasurement(PyGrowUpException):

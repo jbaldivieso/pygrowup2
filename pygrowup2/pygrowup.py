@@ -8,7 +8,7 @@ WEIGHT_BASED_INDICATORS = {
     "wfl",
     "wfh",
     "bmifa",
-    # Note: the WHO technical documentation doesn't discuss skinfold Z-score
+    # Note: the WHO technical documentation doesn't discuss skinfold z-score
     # computation, but it appears that tests pass when the weight-based
     # adjustments are applied.
     "ssfa",
@@ -36,7 +36,7 @@ class Observation(object):
 
         Under most circumstances, an age must be supplied (or implied) by
         specifying age_in_months, age_in_days, or dob AND date_of_observation.
-        (The exception to this is when the *only* Z-score to be calculated is
+        (The exception to this is when the *only* z-score to be calculated is
         weight for length/height.)
         """
         if sex not in self.SEXES:
@@ -125,7 +125,7 @@ class Observation(object):
         return result
 
     def _get_first_pass_z_score(self, y, l, m, s):
-        """Calculate and return a "first-pass" Z-score given the key inputs
+        """Calculate and return a "first-pass" z-score given the key inputs
         derived from a child's age (or in some cases, length/height).
 
         ("First-pass" in this case refers to the fact that certain weight-based
@@ -273,7 +273,7 @@ class Observation(object):
         return y
 
     def get_z_score(self, table_name, sex, y, t):
-        """Calculate and return a Z-score.
+        """Calculate and return a z-score.
 
         Args:
             table_name: one of our abbreviated names for the growth standards.

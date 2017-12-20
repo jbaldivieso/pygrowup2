@@ -18,8 +18,8 @@ These are all based on the
 (with the exception of MUAC for 5-19 years; see notes below about an additional
 data source).
 
-It has been tested on Python 2.7 and Python 3.5 & 3.6. (It should also work on
-Python 3.4, and possibly earlier versions of Python 2 if unittest2 is installed.)
+It has been tested on Python 2.7 and Python 3.5 & 3.6. (It in theory should work
+on most earlier versions of Python 2 & 3.)
 
 Usage
 =====
@@ -46,7 +46,7 @@ Examples:
     obs = Observation(sex=Observation.MALE, dob=thirteen_months_ago,
                       date_of_observation=today)
   
-    # Now calculate some Z-scores for this child
+    # Now calculate some z-scores for this child
     print(obs.head_circumference_for_age(Decimal('46.5')))
 
     # Or, if you're into the whole brevity thing, each method has an alias. And

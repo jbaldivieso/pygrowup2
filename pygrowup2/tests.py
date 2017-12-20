@@ -16,12 +16,12 @@ from pygrowup import Observation
 DATASET_DIR = "test_datasets"
 
 # This file is derived from the R implementation of iGrowup. We're trusting
-# its Z-score values. It's a CSV with erratically named columns, so we
+# its z-score values. It's a CSV with erratically named columns, so we
 # normalize the names for ease of use.
 TEST1_FILE_NAME = "MySurvey_z_st.csv"
 
 # This file is derived from a sample set of data from SPOON, run through the
-# stata implementation of iGrowup. We're trusting its Z-score values as well.
+# stata implementation of iGrowup. We're trusting its z-score values as well.
 # And it's also a CSV with erratically named columns, so we again normalize
 # names for ease of use.
 TEST2_FILE_NAME = "test_dataset.csv"
@@ -362,7 +362,7 @@ class TestZScores(unittest.TestCase):
             )
 
     def test_additional_data_for_arm_circumference_for_age(self):
-        """A one-off that weakly just tests against round Z-score values."""
+        """A one-off that weakly just tests against round z-score values."""
 
         def test(sex):
             file_name = os.path.join(
