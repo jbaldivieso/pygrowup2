@@ -8,8 +8,8 @@ def get_readme(fname):
 
 
 setup(
-    name="pygrowup2",
-    version=__import__('pygrowup2').get_version().replace(' ', '-'),
+    name="pygrowup",
+    version=__import__('pygrowup').get_version().replace(' ', '-'),
     packages=find_packages(),
 
     install_requires=[

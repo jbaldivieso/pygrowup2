@@ -1,7 +1,7 @@
 from decimal import Decimal, getcontext as get_decimal_context
 from importlib import import_module
 
-from pygrowup2 import exceptions
+from . import exceptions
 
 WEIGHT_BASED_INDICATORS = {
     "wfa",
@@ -96,12 +96,12 @@ class Observation(object):
         # The two by-weight metrics' data are housed in the same place--their
         # t values will be Decimals.
         if t != self.t or t <= 1856:
-            module_path = "pygrowup2.tables.by_day.%s" % (table_name)
+            module_path = "pygrowup.tables.by_day.%s" % (table_name)
         else:
             # Must be an age-based metric for an age over 5 years. Round
             # age (in days) to nearest month.
             t = round(t / (365/12.))
-            module_path = "pygrowup2.tables.by_month.%s" % (table_name)
+            module_path = "pygrowup.tables.by_month.%s" % (table_name)
         try:
             source = import_module(module_path)
         except ImportError:

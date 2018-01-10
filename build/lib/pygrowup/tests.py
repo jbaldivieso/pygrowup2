@@ -1,6 +1,7 @@
 import csv
 from datetime import date, datetime, timedelta
 from decimal import Decimal, InvalidOperation
+import os
 import os.path
 try:
     # unittest2 is a dependency for Python < 3.4; after that subTests were
@@ -9,11 +10,10 @@ try:
 except ImportError:
     import unittest
 
-from pygrowup2 import exceptions
-from pygrowup import Observation
+from . import exceptions, Observation
 
 
-DATASET_DIR = "test_datasets"
+DATASET_DIR = os.path.join(os.getcwd(), "pygrowup", "test_datasets")
 
 # This file is derived from the R implementation of iGrowup. We're trusting
 # its z-score values. It's a CSV with erratically named columns, so we
@@ -366,7 +366,7 @@ class TestZScores(unittest.TestCase):
 
         def test(sex):
             file_name = os.path.join(
-                "tables", "by_month", "src",
+                "pygrowup", "tables", "by_month", "src",
                 "mramba_acfa_%(sex)s_5_19.txt" % {"sex": sex}
                 )
             header2zscore = {

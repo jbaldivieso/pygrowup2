@@ -1,8 +1,8 @@
-# pygrowup2
+# pygrowup
 
 
-pygrowup2 builds on the great work of pygrowup and calculates z-scores for 
-the growth measurements of children. The indicators it supports are:
+pygrowup calculates z-scores for the growth measurements of children. The
+indicators it supports are:
 
 * weight-for-age
 * length/height-for-age
@@ -24,7 +24,7 @@ on most earlier versions of Python 2 & 3.)
 Usage
 =====
 
-pygrowup2 is modelled based on an "observation" of a child. The age of the child
+pygrowup is modelled based on an "observation" of a child. The age of the child
 at the time of the observation is captured either explicitly, or inferred based
 on the child's date of birth and the date of the observation. Once an Observation
 object is instantiated, multiple methods are available to compute the z-scores
@@ -74,10 +74,9 @@ alias. The full list of them (aliases in parentheses) is:
 * weight\_for\_height (wfh)
 * weight\_for\_length (wfl)
 
-Differences from pygrowup
+Differences from earlier versions of pygrowup
 =========================
-Evan Wheeler's pygrowup heavily inspired this package. Some differences from it
-are:
+Some differences from the current version and version 0.8.1 and before are:
 
 * This package employs precision based off of a child's age to the day-level
   where possible (up to 5 years of age); the original rounds to nearest
@@ -88,15 +87,18 @@ are:
 
 About tests
 ===========
+Run the tests like this:
+
+```python -m pygrowup.tests```
+
 The tests run against two distinct datasets: one originating from the R
-implementation of WHO's igrowup software (as used by the original pygrowup
-package), and the other based on data SPOON (see credits) collected and
-processed using the Stata version of igrowup. Using the WHO data, this package's
-z-scores are generally within 0.1 of the test datasets with 2 exceptions.
-However, a number of results differ by at least 0.05. It's not clear if that's
-due to the other implementations' use of floating point arithmetic (as pygrowup
-asserts, in contrast with this package's and pygrowup's use of python's Decimal
-library for more precise computation) or if there are small inaccuracies in this
+implementation of WHO's igrowup software, and the other based on data SPOON (see
+credits) collected and processed using the Stata version of igrowup. Using the
+WHO data, this package's z-scores are generally within 0.1 of the test datasets
+with 2 exceptions. However, a number of results differ by at least 0.05. It's
+not clear if that's due to the other implementations' use of floating point
+arithmetic (in contrast with this package's use of python's Decimal library for
+more precise computation) or if there are small inaccuracies in this
 package. So, caveat emptor!
 
 About MUAC data extension

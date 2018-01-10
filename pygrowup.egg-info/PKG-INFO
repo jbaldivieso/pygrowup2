@@ -1,5 +1,5 @@
 Metadata-Version: 1.1
-Name: pygrowup2
+Name: pygrowup
 Version: 0.1.1a0
 Summary: Calculate z-scores of anthropometric measurements based on WHO child growth standards
 Home-page: https://github.org/jbaldivieso/pygrowup2
