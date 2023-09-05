@@ -21,6 +21,10 @@ data source).
 It has been tested on Python 2.7 and Python 3.5 & 3.6. (It in theory should work
 on most earlier versions of Python 2 & 3.)
 
+Installation
+===
+`pip install git+https://github.com/jbaldivieso/pygrowup2.git`
+
 Usage
 =====
 
