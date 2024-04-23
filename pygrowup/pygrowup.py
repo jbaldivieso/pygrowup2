@@ -335,7 +335,7 @@ class Observation(object):
             measurement: BMI value. float or Decimal
         """
         self._validate_t(
-            lower=0, upper=19*365, msg="Range is birth to 19 years."
+            lower=0, upper=19*365.25, msg="Range is birth to 19 years."
             )
         y = self._validate_measurement(measurement, 5, 60)
         return self.get_z_score(
@@ -375,7 +375,7 @@ class Observation(object):
                 Bool.
         """
         self._validate_t(
-            lower=0, upper=19*365, msg="Range is birth to 19 years."
+            lower=0, upper=19*365.25, msg="Range is birth to 19 years."
             )
         y = self._validate_measurement(measurement, 10, 200)
         if self.t >= 365 * 2 and auto_adjust and recumbent:
@@ -428,7 +428,7 @@ class Observation(object):
             measurement: weight measurement (in kg) as float or Decimal
         """
         self._validate_t(
-            lower=0, upper=10*365, msg="Range is birth to 10 years."
+            lower=0, upper=10*365.25, msg="Range is birth to 10 years."
             )
         y = self._validate_measurement(measurement, 1, 125)
         return self.get_z_score(
