@@ -18,8 +18,8 @@ These are all based on the
 (with the exception of MUAC for 5-19 years; see notes below about an additional
 data source).
 
-It has been tested on Python 2.7 and Python 3.5 & 3.6. (It in theory should work
-on most earlier versions of Python 2 & 3.)
+It has been tested on Python 3.10 and 3.12. (It has historically worked
+on Python 2.7 and earlier versions of Python 3.)
 
 Installation
 ===
@@ -63,7 +63,7 @@ Examples:
 
 Except for weight-for-length and weight-for-height, the z-score methods expect
 a single argument for the measurement. (That means BMI must be calculated
-separately (at least for now) and passed in as the measurement.)
+separately and passed in as the measurement.)
 
 Each method for calculating z-scores has a verbose name and a more succinct
 alias. The full list of them (aliases in parentheses) is:
@@ -79,13 +79,13 @@ alias. The full list of them (aliases in parentheses) is:
 * weight\_for\_length (wfl)
 
 Differences from earlier versions of pygrowup
-=========================
+=============================================
 Some differences from the current version and version 0.8.1 and before are:
 
 * This package employs precision based off of a child's age to the day-level
   where possible (up to 5 years of age); the original rounds to nearest
   completed month
-* There is no CDC-data-based option for the growth metrics (at least for now)
+* There is no CDC-data-based option for the growth metrics
 * This package includes the more esoteric metrics (subscapular skinfold-for-age,
   triceps skinfold-for-age, arm circumference-for-age)
 
@@ -99,8 +99,9 @@ The tests run against two distinct datasets: one originating from the R
 implementation of WHO's igrowup software, and the other based on data SPOON (see
 credits) collected and processed using the Stata version of igrowup. Using the
 WHO data, this package's z-scores are generally within 0.1 of the test datasets
-with 2 exceptions. However, a number of results differ by at least 0.05. It's
-not clear if that's due to the other implementations' use of floating point
+with 7 (with earlier versions of Python, this was only 2; unclear why) exceptions.
+However, a number of results differ by at least 0.05. It's not clear if that's due
+to the other implementations' use of floating point
 arithmetic (in contrast with this package's use of python's Decimal library for
 more precise computation) or if there are small inaccuracies in this
 package. So, caveat emptor!
@@ -117,4 +118,5 @@ The data themselves were derived from
 Credits
 =======
 
-The initial implementation of this work was by [SPOON](http://www.spoonfoundation.org).
+The initial implementation of this work was by [SPOON](http://www.spoonfoundation.org), and
+was heavily inspired by Evan Wheeler's [original pygrowup](https://github.com/ewheeler/pygrowup).
