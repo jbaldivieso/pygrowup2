@@ -23,7 +23,14 @@ on Python 2.7 and earlier versions of Python 3.)
 
 Installation
 ===
-`pip install git+https://github.com/jbaldivieso/pygrowup2.git`
+```
+pip install pygrowup2
+```
+
+Or install from source:
+```
+pip install git+https://github.com/jbaldivieso/pygrowup2.git
+```
 
 Usage
 =====
