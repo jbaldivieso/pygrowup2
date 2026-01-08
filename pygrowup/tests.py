@@ -383,6 +383,10 @@ class TestZScores(unittest.TestCase):
                 reader = csv.DictReader(f, delimiter="\t")
                 for row in reader:
                     age_in_months = row["Month"]
+                    # Skip months 60-61 which fall within WHO's range (<=1856 days)
+                    # and will use WHO data, not Mramba data
+                    if int(age_in_months) < 62:
+                        continue
                     # Tests are only month-level age granularity
                     obs_by_month = Observation(
                         sex=Observation.MALE if sex == "boys"
