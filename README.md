@@ -18,8 +18,7 @@ These are all based on the
 (with the exception of MUAC for 5-19 years; see notes below about an additional
 data source).
 
-It has been tested on Python 3.10 and 3.12. (It has historically worked
-on Python 2.7 and earlier versions of Python 3.)
+It requires Python 3.10 or later.
 
 Installation
 ===

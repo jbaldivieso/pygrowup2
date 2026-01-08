@@ -1,4 +1,4 @@
-from decimal import Decimal, getcontext as get_decimal_context
+from decimal import Decimal, InvalidOperation, getcontext as get_decimal_context
 from importlib import import_module
 
 from . import exceptions
@@ -17,7 +17,7 @@ WEIGHT_BASED_INDICATORS = {
     }
 
 
-class Observation(object):
+class Observation:
 
     MALE = "male"
     FEMALE = "female"
@@ -48,14 +48,14 @@ class Observation(object):
         if age_in_days:
             try:
                 self.t = int(age_in_days)
-            except:
+            except (ValueError, TypeError):
                 raise exceptions.ImproperlySpecifiedAge(
                     "age_in_days must be numeric"
                     )
         elif age_in_months:
             try:
                 age_in_months = Decimal(age_in_months)
-            except:
+            except (ValueError, TypeError, InvalidOperation):
                 raise exceptions.ImproperlySpecifiedAge(
                     "age_in_months must be numeric"
                     )
@@ -65,7 +65,7 @@ class Observation(object):
         elif dob and date_of_observation:
             try:
                 self.t = (date_of_observation - dob).days
-            except:
+            except (TypeError, AttributeError):
                 raise exceptions.ImproperlySpecifiedAge(
                     "dob and date_of_observation must be datetime.date or "
                     "datetime.datetime instances"
@@ -259,7 +259,7 @@ class Observation(object):
 
         try:
             y = Decimal(measurement)
-        except:
+        except (ValueError, TypeError, InvalidOperation):
             raise exceptions.ImproperlySpecifiedMeasurement(
                 "Measurement must be numeric."
                 )
