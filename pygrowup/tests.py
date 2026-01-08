@@ -27,7 +27,7 @@ TEST1_FILE_NAME = "MySurvey_z_st.csv"
 TEST2_FILE_NAME = "test_dataset.csv"
 
 # How close do we want our results to match other's?
-DELTA = 0.1
+DELTA = 0.08
 
 HEADER_MAP_1 = {
     "sex": 'GENDER',

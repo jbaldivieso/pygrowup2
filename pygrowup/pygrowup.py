@@ -8,6 +8,7 @@ WEIGHT_BASED_INDICATORS = {
     "wfl",
     "wfh",
     "bmifa",
+    "acfa",
     # Note: the WHO technical documentation doesn't discuss skinfold z-score
     # computation, but it appears that tests pass when the weight-based
     # adjustments are applied.
