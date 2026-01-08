@@ -368,18 +368,22 @@ class Observation(object):
 
         Args:
             measurement: length measurement (in cm) as float or Decimal
-            recumbent: was the measurement taken with child lying down? Ignored
-                for children under 2 years, or if auto_adjust is False. Bool.
-            auto_adjust: if child is over 2 years and measured recumbently,
-                adjust the measurement to convert to a (simulated) height.
+            recumbent: was the measurement taken with child lying down? Bool.
+            auto_adjust: adjust the measurement per WHO guidelines when the
+                measurement method doesn't match the child's age. Specifically:
+                - Child >=2 years measured recumbently: subtract 0.7 cm
+                - Child <2 years measured standing: add 0.7 cm
                 Bool.
         """
         self._validate_t(
             lower=0, upper=19*365.25, msg="Range is birth to 19 years."
             )
         y = self._validate_measurement(measurement, 10, 200)
-        if self.t >= 365 * 2 and auto_adjust and recumbent:
-            y -= Decimal("0.7")
+        if auto_adjust:
+            if self.t >= 365 * 2 and recumbent:
+                y -= Decimal("0.7")
+            elif self.t < 365 * 2 and not recumbent:
+                y += Decimal("0.7")
         return self.get_z_score(
             table_name="lfa",
             y=y,
