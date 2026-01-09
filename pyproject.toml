@@ -1,0 +1,53 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "pygrowup2"
+version = "1.0.0"
+description = "Calculate z-scores of anthropometric measurements based on WHO child growth standards"
+readme = "README.md"
+license = "BSD-3-Clause"
+requires-python = ">=3.10"
+authors = [
+    { name = "Jon Baldivieso", email = "jbaldivieso@gmail.com" },
+]
+keywords = [
+    "anthropometry",
+    "child growth",
+    "WHO",
+    "z-score",
+    "nutrition",
+    "MUAC",
+]
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Healthcare Industry",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: BSD License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Scientific/Engineering :: Bio-Informatics",
+    "Topic :: Scientific/Engineering :: Medical Science Apps.",
+]
+
+[project.urls]
+Homepage = "https://github.com/jbaldivieso/pygrowup2"
+Repository = "https://github.com/jbaldivieso/pygrowup2"
+Issues = "https://github.com/jbaldivieso/pygrowup2/issues"
+
+[tool.hatch.build.targets.sdist]
+include = [
+    "/pygrowup",
+]
+exclude = [
+    "/pygrowup/tables/*/src",
+]
+
+[tool.hatch.build.targets.wheel]
+packages = ["pygrowup"]
